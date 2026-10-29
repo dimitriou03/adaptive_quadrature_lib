@@ -22,3 +22,10 @@ Numerical integration on problems where the integrand has localized structure â€
 The function must be finite and defined at every point sampled, including the endpoints. A singularity at an endpoint or a NaN anywhere will propagate into the result. For integrals with endpoint singularities, transform the integrand or split the interval before calling this library.
 
 `converged` is `False` when the recursion limit (depth 80, roughly 2^80 subdivisions) is reached without the error estimate falling below tolerance.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
